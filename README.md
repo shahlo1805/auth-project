@@ -17,19 +17,25 @@ Swagger UI yordamida hujjatlashtirilgan va JWT orqali himoyalangan.
 
 2. Kerakli paketlarni o‘rnating
 
+```bash
 npm install
+```
 
 3.Environment fayl yarating
 Loyihaning root papkasida .env fayl ochib, quyidagilarni yozing:
 
+```
 PORT=3000
 MONGO_URI=mongodb://localhost:27017/authdb
 JWT_SECRET=your_secret_key
 JWT_EXPIRES_IN=1h
+```
 
 4. Loyihani ishga tushiring
 
+```bash
 npm run dev
+```
 
 📚 API hujjatlari
 
