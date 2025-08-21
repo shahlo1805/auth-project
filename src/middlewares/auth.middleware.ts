@@ -8,7 +8,8 @@ export interface AuthRequest extends Request {
 
 export const auth = (req: AuthRequest, res: Response, next: NextFunction) => {
   const header = req.headers["authorization"];
-  if (!header) return res.status(401).json({ message: "Authorization header missing" });
+  if (!header)
+    return res.status(401).json({ message: "Authorization header missing" });
 
   const parts = header.split(" ");
   if (parts.length !== 2 || parts[0] !== "Bearer") {
@@ -16,7 +17,10 @@ export const auth = (req: AuthRequest, res: Response, next: NextFunction) => {
   }
 
   try {
-    const decoded = jwt.verify(parts[1], ENV.JWT_SECRET) as { userId: string; email?: string };
+    const decoded = jwt.verify(parts[1], ENV.JWT_SECRET) as {
+      userId: string;
+      email?: string;
+    };
     req.user = decoded;
     next();
   } catch (err: any) {

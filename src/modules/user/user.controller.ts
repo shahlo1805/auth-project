@@ -22,11 +22,16 @@ export class UserController {
     }
   }
 
-
-  static async getAll(req: Request, res: Response) {
+  static async profile(req: Request, res: Response) {
     try {
-      const users = await UserService.getAll();
-      res.status(200).json(users);
+      const userId = (req as any).user.id;
+      const user = await UserService.getById(userId);
+
+      if (!user) {
+        return res.status(404).json({ message: "User not found" });
+      }
+
+      res.json(user);
     } catch (error: any) {
       res.status(500).json({ message: error.message });
     }

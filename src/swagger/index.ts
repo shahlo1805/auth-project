@@ -1,7 +1,7 @@
 import swaggerJSDoc from "swagger-jsdoc";
 import swaggerUi from "swagger-ui-express";
 import { Application } from "express";
-import { UserSchemas } from "../swagger.schema";
+import { UserPaths, UserSchemas } from "./users.swagger";
 
 const options: swaggerJSDoc.Options = {
   definition: {
@@ -22,8 +22,11 @@ const options: swaggerJSDoc.Options = {
         ...UserSchemas,
       },
     },
+    paths: {
+      ...UserPaths,
+    },
   },
-  apis: ["./src/modules/**/*.ts"], // route fayllardagi JSDoc larni o‘qiydi
+  apis: ["./src/modules/**/*.ts"],
 };
 
 const swaggerSpec = swaggerJSDoc(options);
