@@ -49,4 +49,8 @@ export class UserService {
   static async getById(id: string) {
     return userModel.findById(id).select("name email -_id");
   }
+
+  static async getAll() {
+    return userModel.find(); 
+  }
 }

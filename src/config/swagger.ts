@@ -1,7 +1,9 @@
 import swaggerJSDoc from "swagger-jsdoc";
 import swaggerUi from "swagger-ui-express";
 import { Application } from "express";
-import { UserPaths, UserSchemas } from "./users.swagger";
+import { ClientPaths, ClientSchemas } from "../docs/client.swagger";
+import { UserPaths, UserSchemas } from "../docs/users.swagger";
+import { OAuthPaths, OAuthSchemas } from "../docs/oauth.swagger";
 
 const options: swaggerJSDoc.Options = {
   definition: {
@@ -17,22 +19,29 @@ const options: swaggerJSDoc.Options = {
           scheme: "bearer",
           bearerFormat: "JWT",
         },
+        oauthBearerAuth: {
+          type: "http",
+          scheme: "bearer",
+          bearerFormat: "JWT",
+        },
       },
       schemas: {
         ...UserSchemas,
+        ...OAuthSchemas,
+        ...ClientSchemas,
       },
     },
     paths: {
       ...UserPaths,
+      ...OAuthPaths,
+      ...ClientPaths,
     },
   },
-  apis: ["./src/modules/**/*.ts"],
+  apis: [],
 };
 
 const swaggerSpec = swaggerJSDoc(options);
 
 export function swaggerDocs(app: Application, port: number) {
   app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
-
-  console.log(`Swagger docs available at http://localhost:${port}/api-docs`);
 }

@@ -10,9 +10,9 @@ userRoutes.post(
   "/register",
   validateDto(CreateUserDto),
   UserController.register
-);
-userRoutes.post("/login", validateDto(LoginUserDto), UserController.login);
-
-userRoutes.get("/me", auth, UserController.profile);
+)
+.post("/login", validateDto(LoginUserDto), UserController.login)
+.get("/me", auth, UserController.profile)
+.get("/",auth, UserController.getAll)
 
 export default userRoutes;
